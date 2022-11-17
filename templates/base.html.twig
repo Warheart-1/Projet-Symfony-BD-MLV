@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Welcome !{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -13,11 +13,35 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <header>
+            <ul class="flex w-auto h-14 bg-blue-300 ">
+                <li class="mr-6 mt-3">
+                    <a class="text-blue-500 hover:text-blue-800" href="{{ path('app_main')}}">Home</a>
+                </li>
+                <li class="mr-6 mt-3">
+                    <a class="text-blue-500 hover:text-blue-800" href="#">List of Products</a>
+                </li>
+                {% if app.user %}
+                    <li class="mr-6 mt-3">
+                        <a class="text-blue-500 hover:text-blue-800" href="#">Check your Products</a>
+                    </li>
+                    <li class="mr-6 mt-3">
+                        <a class="text-blue-500 hover:text-blue-800" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="mr-6 mt-3">
+                        <a class="text-blue-500 hover:text-blue-800" href="{{ path('app_login')}}">Login</a>
+                    </li>
+                    <li class="mr-6 mt-3">
+                        <a class="text-blue-500 hover:text-blue-800" href="{{ path('app_register') }}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </header>
+    <body class=" bg-blue-200">
         {% block body %}
-            <h1 class="text-3xl font-bold">
-                Hello world!
-            </h1>
+        
+            
         {% endblock %}
     </body>
 </html>

@@ -1,3 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block body %}
+
+    {% for postRegister in postRegisters %}
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+            <div class="flex flex-row, justify-center">
+                <h1 class="text-4xl text-white">{{ postRegister.title }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ postRegister.description }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ postRegister.content }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Quantity : {{ postRegister.quantity }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Price : {{ postRegister.price }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Category : {{ postRegister.category }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Create at : {{ postRegister.CreatedAt|date('d/m/Y H:i:s') }}</h1>
+            </div>
+            {% if postRegister.updatedAt is defined %}
+                <div class="flex flex-row, justify-center">
+                    <h1 class=" text-lg text-white">Update at : {{postRegister.updatedAt|date('d/m/Y H:i:s')}} </h1>
+                </div>
+            {% endif %}
+            {% if app.user %}
+                <div class="flex flex-row, justify-center">
+                    <a href="{{ path('app_article_show', {'id': postRegister.id}) }}" class="btn btn-primary">Edit</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock %}
