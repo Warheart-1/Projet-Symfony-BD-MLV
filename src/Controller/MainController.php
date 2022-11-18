@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
+use App\Repository\ArticleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +19,7 @@ class MainController extends AbstractController
     {
     }
 
-    #[Route('/accueil', name: 'app_main')]
+    #[Route('/', name: 'app_main')]
     public function index(): Response
     {
         if ($this->getUser()) {
@@ -32,7 +35,7 @@ class MainController extends AbstractController
     }
     
     #[Route('/accueil/{id}', name: 'app_main_show')]
-    public function show(Article $article): Response
+    public function show(Request $request, $id, ArticleRepository $articleRepository): Response
     {
         
         return $this->render('main/show.html.twig', [

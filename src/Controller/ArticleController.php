@@ -63,7 +63,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'app_article_edit')]
-    public function edit(Request $request, $id, ArticleRepository $articleRepository): Response
+    public function edit(Request $request, $id): Response
     {
 
         $articleRegister = $this->registry->getRepository(Article::class)->find($id);

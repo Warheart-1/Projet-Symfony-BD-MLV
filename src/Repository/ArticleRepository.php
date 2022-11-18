@@ -52,6 +52,28 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllWithAuthor(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.ModifiedAt', 'ASC')
+            ->join('a.CreatedBy', 'u')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findArticleByAuthor($id): array
+    {
+        return $this->createQueryBuilder('a')
+            ->orderBy('a.ModifiedAt', 'ASC')
+            ->join('a.CreatedBy', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Article
 //    {
 //        return $this->createQueryBuilder('a')

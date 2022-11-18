@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+        <div class="flex flex-row, justify-center mb-4">
+            <a class=" text-white hover:text-blue-800" href="{{ path('app_register') }}">Profils Edition</a>
+        </div>
+        <div class="flex flex-row, justify-center">
+            <a class="text-white hover:text-blue-800" href="{{ path('app_admin_article') }}">Articles Edition</a>
+        </div>
+    </div>
+{% endblock %}
