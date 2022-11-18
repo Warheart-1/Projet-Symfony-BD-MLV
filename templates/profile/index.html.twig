@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% dump(user)%}
+
+{% block body %}
+    <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+        <div class="flex flex-row, justify-center">
+            <h1 class=" text-lg text-white">Name : {{user.name}}</h1>
+        </div>
+        <div class="flex flex-row, justify-center">
+            <h1 class=" text-lg text-white">Firstname : {{user.Firstname}}</h1>
+        </div>
+        <div class="flex flex-row, justify-center">
+            <h1 class=" text-lg text-white">Email : {{user.email}}</h1>
+        </div>
+        <div class="flex flex-row, justify-center">
+             <a href="{{ path('app_profile_edit', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+
+{% endblock %}

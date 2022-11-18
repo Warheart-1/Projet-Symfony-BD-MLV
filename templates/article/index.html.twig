@@ -29,6 +29,7 @@
                     <h1 class=" text-lg text-white">Update at : {{article.modifiedAt|date('d/m/Y H:i:s')}} </h1>
                 </div>
             {% endif %}
+            
             <div class="flex flex-row, justify-center">
                 <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
             </div>

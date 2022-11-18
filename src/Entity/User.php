@@ -32,6 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'CreatedBy', targetEntity: Article::class)]
     private Collection $articles;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Firstname = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -152,6 +158,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $article->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->Name;
+    }
+
+    public function setName(?string $Name): self
+    {
+        $this->Name = $Name;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->Firstname;
+    }
+
+    public function setFirstname(?string $Firstname): self
+    {
+        $this->Firstname = $Firstname;
 
         return $this;
     }

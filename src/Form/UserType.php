@@ -15,22 +15,22 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'Name',
+                'attr' => [
+                    'placeholder' => 'Name'
+                ]
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Firstname',
+                'attr' => [
+                    'placeholder' => 'Firstname'
+                ]
+            ])
             ->add('email', TextType::class, [
                 'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'Email'
-                ]
-            ])
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Roles',
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER'
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'attr' => [
-                    'placeholder' => 'Roles'
                 ]
             ])
             ->add('password', PasswordType::class, [

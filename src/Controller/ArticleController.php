@@ -25,7 +25,6 @@ class ArticleController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
         $articles = $user->getArticles()->getValues();
-        //dd($articles);
 
         return $this->render('article/index.html.twig', [
             'controller_name' => 'ArticleController',

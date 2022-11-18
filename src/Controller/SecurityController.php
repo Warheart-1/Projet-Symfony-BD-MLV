@@ -51,6 +51,7 @@ class SecurityController extends AbstractController
             $user = $form->getData();
 
             $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
+            $user->setRoles(['ROLE_USER']);
 
             $entityManager = $this->registry->getManager();
             $entityManager->persist($user);
