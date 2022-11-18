@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(formArticle) }}
+    {{ form_widget(formArticle) }}
+    <button>{{ button_label|default('Enregistrer') }}</button>
+    {{ form_end(formArticle) }}
+{% endblock %}

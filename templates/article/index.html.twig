@@ -1,20 +1,41 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello ArticleController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% for article in articles %}
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+            <div class="flex flex-row, justify-center">
+                <h1 class="text-4xl text-white">{{ article.title }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ article.description }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ article.content }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Quantity : {{ article.quantity }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Price : {{ article.price }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Category : {{ article.category }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Create at : {{ article.CreatedAt|date('d/m/Y H:i:s') }}</h1>
+            </div>
+            {% if article.modifiedAt is defined %}
+                <div class="flex flex-row, justify-center">
+                    <h1 class=" text-lg text-white">Update at : {{article.modifiedAt|date('d/m/Y H:i:s')}} </h1>
+                </div>
+            {% endif %}
+            <div class="flex flex-row, justify-center">
+                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-primary">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/PHP_POO_MLV/Projet_Symfony/Projet-Symfony-BD-MLV/src/Controller/ArticleController.php'|file_link(0) }}">src/Controller/ArticleController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/PHP_POO_MLV/Projet_Symfony/Projet-Symfony-BD-MLV/templates/article/index.html.twig'|file_link(0) }}">templates/article/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}

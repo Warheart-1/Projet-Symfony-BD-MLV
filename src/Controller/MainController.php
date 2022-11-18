@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ArticleRepository;
 
 #[Route('/')]
 class MainController extends AbstractController
@@ -20,12 +19,18 @@ class MainController extends AbstractController
     #[Route('/accueil', name: 'app_main')]
     public function index(): Response
     {
-        $postRegisters = $this->resgistry->getRepository(Article::class)->findByDateCreatedLimit3(3);
+        if ($this->getUser()) {
+            $postRegisters = $this->resgistry->getRepository(Article::class)->findAll();
+        }
+        else {
+            $postRegisters = $this->resgistry->getRepository(Article::class)->findByDateCreatedLimit3(3);
+        }
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'postRegisters' => $postRegisters
+            'articles' => $postRegisters
         ]);
     }
+    
     #[Route('/accueil/{id}', name: 'app_main_show')]
     public function show(Article $article): Response
     {

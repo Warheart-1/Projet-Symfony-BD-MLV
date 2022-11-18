@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+            <div class="flex flex-row, justify-center">
+                <h1 class="text-4xl text-white">{{ articleRegister.title }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ articleRegister.description }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">{{ articleRegister.content }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Quantity : {{ articleRegister.quantity }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Price : {{ articleRegister.price }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Category : {{ articleRegister.category }}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Create at : {{ articleRegister.CreatedAt|date('d/m/Y H:i:s') }}</h1>
+            </div>
+            {% if postRegister.updatedAt is defined %}
+                <div class="flex flex-row, justify-center">
+                    <h1 class=" text-lg text-white">Update at : {{ articleRegister.updatedAt|date('d/m/Y H:i:s')}} </h1>
+                </div>
+            {% endif %}
+            <div class="flex flex-row, justify-center">
+                <a href="{{ path('app_article_edit', {'id': postRegister.id}) }}" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    {% endblock %}
