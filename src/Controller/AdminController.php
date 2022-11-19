@@ -40,10 +40,17 @@ class AdminController extends AbstractController
     {
         $user = $this->getUser();
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
-            $article = $this->getDoctrine()->getRepository(Article::class)->findAllWithAuthor();
+            $article = $this->getDoctrine()->getRepository(Article::class)->findAll();
+            $categories = [];
+            foreach($article as $a) {
+                if (!in_array($a->getCategory(),$categories)) {
+                    $categories[] = $a->getCategory();
+                }
+            }
             return $this->render('admin/article.html.twig', [
                 'controller_name' => 'AdminController',
-                'articles' => $article
+                'articles' => $article,
+                'categories' => $categories
             ]);
         }
         else {
@@ -183,9 +190,8 @@ class AdminController extends AbstractController
 
             if ($formProfile->isSubmitted() && $formProfile->isValid()) {
                 $profile = $formProfile->getData();
-
-                $profile->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
-
+                
+                $profile->setPassword($this->passwordHasher->hashPassword($profile, $profile->getPassword()));
                 $entityManager = $this->registry->getManager();
                 $entityManager->persist($profile);
                 $entityManager->flush();

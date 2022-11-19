@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<select>
+    {% for category in categories %}
+        <option value="{{ category }}">{{ category }}</option>
+    {% endfor %}
+</select>
+<div id="containerProduct">
     {% for article in articles %}
         <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
             <div class="flex flex-row, justify-center">
@@ -41,7 +46,67 @@
             </div>
         </div>
     {% endfor %}
+</div>
     <div class="flex flex-row, justify-center">
         <a class=" hover:text-white" href="{{ path('app_admin_article_create') }}" class="btn btn-primary">Create new</a>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        window.onload = () => {
+            const select = document.querySelector('select');
+            select.addEventListener('change', (e) => {
+                const category = e.target.value;
+                fetch(`/admin/article/category/${category}`)
+                .then(response => response.json())
+                .then(data => {
+                    const containerProduct = document.getElementById('containerProduct');
+                    containerProduct.innerHTML = '';
+                    data.forEach(article => {
+                        containerProduct.innerHTML += `<div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+            <div class="flex flex-row, justify-center">
+                <h1 class="text-4xl text-white">${article.name}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">${article.description}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-xl text-white">${article.content}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Quantity : ${article.quantity}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Price : ${article.price}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Category : ${article.category}</h1>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <h1 class=" text-lg text-white">Create at : ${article.date}</h1>
+            </div>
+                <div class="flex flex-row, justify-center">
+                     ${article.dateupdate !== null ? '<h1 class=" text-lg text-white">Update at : ' + article.dateupdate + '</h1>' : ``}
+                </div>
+            <div class="flex flex-row, justify-center">
+                <a class=" hover:text-white" href="/admin/article/edit/${article.id}" class="btn btn-primary">Edit</a>
+            </div>
+            <div class="flex flex-row, justify-center">
+                <form method="post" action="/admin/article/delete/${article.id}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                    <input type="hidden" name="_token">
+                    <button class="btn">Delete</button>
+                </form>
+            </div>
+        </div>` 
+                    })
+                    console.log(data);
+                })
+                .catch(error =>{ console.error(error);return;}); 
+            })
+
+        }
+    </script>
 {% endblock %}
