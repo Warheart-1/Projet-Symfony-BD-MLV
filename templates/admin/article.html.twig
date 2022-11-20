@@ -16,7 +16,11 @@
         <option value="{{ author.id }}">{{ author.name }}</option> 
     {% endfor %}
 </select>
-
+<h2 class=" text-lg underline"> Sort by Date </h2>
+<select id="dates">
+   <option value="DESC">Newest</option>
+   <option value="ASC">Oldest</option>" 
+</select>
     <main id="containerProduct" class="grid grid-cols-5 mt-4 content-start">
     {% for article in articles %}
         <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
@@ -68,6 +72,7 @@
         window.onload = () => {
             const selectCatories = document.getElementById('categories');
             const selectAuthor = document.getElementById('authors');
+            const selectDate = document.getElementById('dates');
             function fetchToControler(url)
             {
                 fetch(url)
@@ -125,6 +130,11 @@
             const author = e.target.value;
             fetchToControler('/admin/article/author/' + author);
         })
+        selectDate.addEventListener('change', (e) => {
+            const date = e.target.value;
+            fetchToControler('/admin/article/Date/' + date);
+        })
+        
     }
 
 </script>
