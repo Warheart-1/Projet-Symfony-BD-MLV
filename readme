@@ -1,0 +1,19 @@
+# symfony-rendu-Axel SELEBRAN
+
+1 - Mettre le project à la racine de WWW ou Htdocs dans Xamp ou Wamp et lancer le serv local + import dump bdd.
+
+2 - Faire la commande dans le powershell  -> composer install pour les depenses composer.
+
+3 - Faire la commande dans le powershell -> npm install pour les depenses nodes. 
+
+4 - Dans le .env à la racine du projet mettre le port 3306 (ou un autre port si changer)
+
+5 - Faire la commande dans le powershell ->  symfony console doctrine:database:create
+
+6 - Faire la commande dans le powershell -> symfony console d:s:u --force
+
+#pour le css
+7 - Faire la commande dans le powershell ->  npm run watch 
+
+8 - Et pour lancer le Serv faire la commande dans le powershell -> symfony server:start ou  symfony serve -d
+
