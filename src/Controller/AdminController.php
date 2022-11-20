@@ -25,6 +25,9 @@ class AdminController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             return $this->render('admin/index.html.twig', [
                 'controller_name' => 'AdminController',
@@ -39,6 +42,9 @@ class AdminController extends AbstractController
     public function article(): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $article = $this->getDoctrine()->getRepository(Article::class)->findAll();
             $categories = [];
@@ -68,6 +74,9 @@ class AdminController extends AbstractController
     {
 
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $articleRegister = $articleRepository->find($id);
 
@@ -97,6 +106,9 @@ class AdminController extends AbstractController
     public function articleCreate(Request $request): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $article = new Article();
             $form = $this->createForm(ArticleType::class, $article);
@@ -123,6 +135,9 @@ class AdminController extends AbstractController
     public function articleDelete($id, ArticleRepository $articleRepository): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $article = $articleRepository->find($id);
             $this->registry->getManager()->remove($article);
@@ -139,6 +154,9 @@ class AdminController extends AbstractController
     public function profile(): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $profile = $this->getDoctrine()->getRepository(User::class)->findAll();
             return $this->render('admin/profile.html.twig', [
@@ -155,6 +173,9 @@ class AdminController extends AbstractController
     public function profileEdit(Request $request, $id, UserRepository $articleRepository): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $profileRegister = $articleRepository->find($id);
 
@@ -188,6 +209,9 @@ class AdminController extends AbstractController
     public function profileCreate(Request $request): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $profile = new User();
             $formProfile = $this->createForm(AdminUserType::class, $profile);
@@ -218,6 +242,9 @@ class AdminController extends AbstractController
     public function profileDelete($id, UserRepository $articleRepository): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $profile = $articleRepository->find($id);
             $article = $this->getDoctrine()->getRepository(Article::class)->findArticleByAuthor($profile);

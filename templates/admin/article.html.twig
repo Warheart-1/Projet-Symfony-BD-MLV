@@ -21,6 +21,9 @@
    <option value="DESC">Newest</option>
    <option value="ASC">Oldest</option>" 
 </select>
+    <div class="flex flex-row, justify-center">
+        <a class=" hover:text-white text-4xl" href="{{ path('app_admin_article_create') }}" class="btn btn-primary">Create new Article</a>
+    </div>
     <main id="containerProduct" class="grid grid-cols-5 mt-4 content-start">
     {% for article in articles %}
         <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
@@ -60,9 +63,6 @@
         </div>
     {% endfor %}
 </main>
-    <div class="flex flex-row, justify-center">
-        <a class=" hover:text-white" href="{{ path('app_admin_article_create') }}" class="btn btn-primary">Create new</a>
-    </div>
 {% endblock %}
 
 {% block javascripts %}

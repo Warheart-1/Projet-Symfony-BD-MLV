@@ -1,8 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(formUser) }}
-    {{ form_widget(formUser) }}
-    <button>{{ button_label|default('Enregistrer') }}</button>
-    {{ form_end(formUser) }}
+<div class=" flex flex-row justify-center">
+        {{ form_start(formUser) }}
+            <div class="flex flex-col">
+                <div class="flex flex-row">
+                    <div class="flex flex-col">
+                        {{form_label(formUser.Name)}}
+                        {{form_widget(formUser.Name)}}
+                        {{form_label(formUser.Firstname)}}
+                        {{form_widget(formUser.Firstname)}}
+                        {{form_label(formUser.email)}}
+                        {{form_widget(formUser.email)}}
+                        {{form_label(formUser.password)}}
+                        {{form_widget(formUser.password)}}
+                        {{form_label(formUser.roles)}}
+                        {{form_widget(formUser.roles)}}
+                    </div>
+                </div>
+                <div class="flex flex-row justify-center">
+                    <button class="btn btn-primary hover:text-white" type="submit">Save Changes</button>
+                </div>
+            </div>
+        {{ form_end(formUser) }}
+    </div>
 {% endblock %}

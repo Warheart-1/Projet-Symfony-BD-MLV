@@ -22,7 +22,9 @@ class ArticleController extends AbstractController
     #[Route('/', name: 'app_article')]
     public function index(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        if($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
         $user = $this->getUser();
         $articles = $user->getArticles()->getValues();
 
@@ -44,7 +46,9 @@ class ArticleController extends AbstractController
     #[Route('/create', name: 'app_article_create')]
     public function create(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        if($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -65,7 +69,9 @@ class ArticleController extends AbstractController
     #[Route('/edit/{id}', name: 'app_article_edit')]
     public function edit(Request $request, $id): Response
     {
-
+        if($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
         $articleRegister = $this->registry->getRepository(Article::class)->find($id);
 
         $formArticle = $this->createForm(ArticleType::class, $articleRegister);
@@ -92,6 +98,9 @@ class ArticleController extends AbstractController
     #[Route('/delete/{id}', name: 'app_article_delete')]
     public function delete($id): Response
     {
+        if($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
         $articleRegister = $this->registry->getRepository(Article::class)->find($id);
 
         $article = $this->registry->getManager();
