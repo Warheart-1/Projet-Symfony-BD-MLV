@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+<main class="grid place-items-center mt-4">
+    <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
         <div class="flex flex-row, justify-center">
             <h1 class=" text-lg text-white">Name : {{user.name}}</h1>
         </div>
@@ -12,8 +13,8 @@
             <h1 class=" text-lg text-white">Email : {{user.email}}</h1>
         </div>
         <div class="flex flex-row, justify-center">
-             <a href="{{ path('app_profile_edit', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
+             <a class=" hover:text-white " href="{{ path('app_profile_edit', {'id': user.id}) }}" class="btn btn-primary">Edit</a>
         </div>
     </div>
-
+</main>
 {% endblock %}

@@ -58,7 +58,7 @@ class ArticleController extends AbstractController
         }
         return $this->render('article/create.html.twig', [
             'controller_name' => 'ArticleController',
-            'formArticle' => $form->createView()
+            'formArticle' => $form->createView(),
         ]);
     }
 
@@ -82,7 +82,6 @@ class ArticleController extends AbstractController
 
             return $this->redirectToRoute('app_article');
         }
-
         return $this->render('article/edit.html.twig', [
             'controller_name' => 'ArticleController',
             'articleRegister' => $articleRegister,

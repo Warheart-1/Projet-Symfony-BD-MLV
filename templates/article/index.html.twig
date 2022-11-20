@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+<main class="grid grid-cols-5 mt-4 content-start">
     {% for article in articles %}
-        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
             <div class="flex flex-row, justify-center">
                 <h1 class="text-4xl text-white">{{ article.title }}</h1>
             </div>
@@ -24,19 +25,19 @@
             <div class="flex flex-row, justify-center">
                 <h1 class=" text-lg text-white">Create at : {{ article.CreatedAt|date('d/m/Y H:i:s') }}</h1>
             </div>
-            {% if article.modifiedAt is defined %}
+            {% if article.modifiedAt is defined and article.modifiedAt is not null %}
                 <div class="flex flex-row, justify-center">
                     <h1 class=" text-lg text-white">Update at : {{article.modifiedAt|date('d/m/Y H:i:s')}} </h1>
                 </div>
             {% endif %}
             
             <div class="flex flex-row, justify-center">
-                <a href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
+                <a class=" hover:text-white" href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
             </div>
             <div class="flex flex-row, justify-center">
-                <a href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-primary">Delete</a>
+                <a class=" hover:text-white" href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-primary">Delete</a>
             </div>
         </div>
     {% endfor %}
-
+</main>
 {% endblock %}

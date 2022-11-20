@@ -1,8 +1,33 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    {{ form_start(formArticle) }}
-    {{ form_widget(formArticle) }}
-    <button>{{ button_label|default('Enregistrer') }}</button>
-    {{ form_end(formArticle) }}
+<h1 class="text-center text-4xl underline flex flex-row justify-center">Edit of {{articleRegister.Title}}</h1>
+<div class=" flex flex-row justify-center">
+        {{ form_start(formArticle) }}
+            <div class="flex flex-col">
+                <div class="flex flex-row">
+                    <div class="flex flex-col">
+                        {{form_label(formArticle.Title)}}
+                        {{form_widget(formArticle.Title)}}
+                        {{form_label(formArticle.Description)}}
+                        {{form_widget(formArticle.Description)}}
+                        {{form_label(formArticle.Content)}}
+                        {{form_widget(formArticle.Content)}}
+                        {{form_label(formArticle.Quantity)}}
+                        {{form_widget(formArticle.Quantity)}}
+                        {{form_label(formArticle.Price)}}
+                        {{form_widget(formArticle.Price)}}
+                        {{form_label(formArticle.Category)}}
+                        {{form_widget(formArticle.Category)}}
+                        {{form_label(formArticle.Color)}}
+                        {{form_widget(formArticle.Color)}}
+                        {{form_label(formArticle.Size)}}
+                        {{form_widget(formArticle.Size)}}
+                    </div>
+                </div>
+                <div class="flex flex-row justify-center">
+                    <button class="btn btn-primary hover:text-white" type="submit">Save Changes</button>
+                </div>
+            </div>
+        {{ form_end(formArticle) }}
+    </div>
 {% endblock %}

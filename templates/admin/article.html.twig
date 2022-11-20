@@ -1,14 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<select>
+<h2 class=" text-lg underline"> Sort by categories </h2>
+<select id="categories">
+    <option selected="selected" value="all">All</option>
     {% for category in categories %}
-        <option value="{{ category }}">{{ category }}</option>
+        <option value="{{ category }}">{{ category }}</option> 
     {% endfor %}
 </select>
-<div id="containerProduct">
+
+<h2 class=" text-lg underline"> Sort by Author </h2>
+<select id="authors">
+    <option selected="selected" value="all">All</option>
+    {% for author in authors %}
+        <option value="{{ author.id }}">{{ author.name }}</option> 
+    {% endfor %}
+</select>
+
+    <main id="containerProduct" class="grid grid-cols-5 mt-4 content-start">
     {% for article in articles %}
-        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
             <div class="flex flex-row, justify-center">
                 <h1 class="text-4xl text-white">{{ article.title }}</h1>
             </div>
@@ -35,18 +46,16 @@
                     <h1 class=" text-lg text-white">Update at : {{article.modifiedAt|date('d/m/Y H:i:s')}} </h1>
                 </div>
             {% endif %}
+            
             <div class="flex flex-row, justify-center">
-                <a class=" hover:text-white" href="{{ path('app_admin_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
+                <a class=" hover:text-white" href="{{ path('app_article_edit', {'id': article.id}) }}" class="btn btn-primary">Edit</a>
             </div>
             <div class="flex flex-row, justify-center">
-                <form method="post" action="{{ path('app_admin_article_delete', {'id': article.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
-                    <button class="btn">Delete</button>
-                </form>
+                <a class=" hover:text-white" href="{{ path('app_article_delete', {'id': article.id}) }}" class="btn btn-primary">Delete</a>
             </div>
         </div>
     {% endfor %}
-</div>
+</main>
     <div class="flex flex-row, justify-center">
         <a class=" hover:text-white" href="{{ path('app_admin_article_create') }}" class="btn btn-primary">Create new</a>
     </div>
@@ -55,58 +64,68 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
+<script>
         window.onload = () => {
-            const select = document.querySelector('select');
-            select.addEventListener('change', (e) => {
-                const category = e.target.value;
-                fetch(`/admin/article/category/${category}`)
+            const selectCatories = document.getElementById('categories');
+            const selectAuthor = document.getElementById('authors');
+            function fetchToControler(url)
+            {
+                fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const containerProduct = document.getElementById('containerProduct');
                     containerProduct.innerHTML = '';
                     data.forEach(article => {
-                        containerProduct.innerHTML += `<div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
-            <div class="flex flex-row, justify-center">
-                <h1 class="text-4xl text-white">${article.name}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-xl text-white">${article.description}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-xl text-white">${article.content}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-lg text-white">Quantity : ${article.quantity}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-lg text-white">Price : ${article.price}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-lg text-white">Category : ${article.category}</h1>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <h1 class=" text-lg text-white">Create at : ${article.date}</h1>
-            </div>
-                <div class="flex flex-row, justify-center">
-                     ${article.dateupdate !== null ? '<h1 class=" text-lg text-white">Update at : ' + article.dateupdate + '</h1>' : ``}
-                </div>
-            <div class="flex flex-row, justify-center">
-                <a class=" hover:text-white" href="/admin/article/edit/${article.id}" class="btn btn-primary">Edit</a>
-            </div>
-            <div class="flex flex-row, justify-center">
-                <form method="post" action="/admin/article/delete/${article.id}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                    <input type="hidden" name="_token">
-                    <button class="btn">Delete</button>
-                </form>
-            </div>
-        </div>` 
-                    })
+                        containerProduct.innerHTML += `
+                            <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
+                            <div class="flex flex-row, justify-center">
+                                <h1 class="text-4xl text-white">${article.name}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-xl text-white">${article.description}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-xl text-white">${article.content}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-lg text-white">Quantity : ${article.quantity}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-lg text-white">Price : ${article.price}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-lg text-white">Category : ${article.category}</h1>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <h1 class=" text-lg text-white">Create at : ${article.date}</h1>
+                            </div>
+                                <div class="flex flex-row, justify-center">
+                                    ${article.dateupdate !== null ? '<h1 class=" text-lg text-white">Update at : ' + article.dateupdate + '</h1>' : ``}
+                                </div>
+                            <div class="flex flex-row, justify-center">
+                                <a class=" hover:text-white" href="/admin/article/edit/${article.id}" class="btn btn-primary">Edit</a>
+                            </div>
+                            <div class="flex flex-row, justify-center">
+                                <form method="post" action="/admin/article/delete/${article.id}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <input type="hidden" name="_token">
+                                    <button class="btn">Delete</button>
+                                </form>
+                            </div>
+                        </div>`;
+                    });
                     console.log(data);
                 })
                 .catch(error =>{ console.error(error);return;}); 
-            })
+            }
+        selectCatories.addEventListener('change', (e) => {
+            const category = e.target.value;
+            fetchToControler('/admin/article/category/' + category);
+        })
+        selectAuthor.addEventListener('change', (e) => {
+            const author = e.target.value;
+            fetchToControler('/admin/article/author/' + author);
+        })
+    }
 
-        }
-    </script>
+</script>
 {% endblock %}

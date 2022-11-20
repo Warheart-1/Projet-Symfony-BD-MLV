@@ -42,15 +42,20 @@ class AdminController extends AbstractController
         if (in_array('ROLE_ADMIN',$user->getRoles())) {
             $article = $this->getDoctrine()->getRepository(Article::class)->findAll();
             $categories = [];
+            $authors = [];
             foreach($article as $a) {
                 if (!in_array($a->getCategory(),$categories)) {
                     $categories[] = $a->getCategory();
+                }
+                if (!in_array($a->getCreatedBy(),$authors) && $a->getCreatedBy() != null) {
+                    $authors[] = $a->getCreatedBy();
                 }
             }
             return $this->render('admin/article.html.twig', [
                 'controller_name' => 'AdminController',
                 'articles' => $article,
-                'categories' => $categories
+                'categories' => $categories,
+                'authors' => $authors,
             ]);
         }
         else {

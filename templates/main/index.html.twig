@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<main class="grid grid-cols-5 mt-4 content-start">
     {% for article in articles %}
-        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3">
+        <div class="bg-slate-500 opacity-75 border-slate-900 rounded-sm mb-3 w-80 mx-auto px-8">
             <div class="flex flex-row, justify-center">
                 <h1 class="text-4xl text-white">{{ article.title }}</h1>
             </div>
@@ -32,5 +32,5 @@
             {% endif %}
         </div>
     {% endfor %}
-
+</main>
 {% endblock %}
